@@ -265,6 +265,14 @@ Việc dùng `readonly` chỉ nhằm mục đích tránh những nhầm lẫn v�
 
 ---
 
+## Part 3 - Practical 🏃‍♀️ exercise
+
+![height:440px](assets/hoach-le-dinh-PeRt3uMmjYM-unsplash.jpg)
+
+Photo by [Hoach Le Dinh](https://unsplash.com/es/@hoachld?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText) on Unsplash.
+
+---
+
 ## Cảm ơn vì đã lắng nghe 🌱
 
 ![height:440px](assets/jack-anstey-MiUyKAHP90s-unsplash.jpg)
