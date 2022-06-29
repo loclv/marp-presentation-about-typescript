@@ -87,6 +87,91 @@ Ta nhắc lại nhược điểm cũng là ưu điểm của JavaScript, rằng 
 
 ---
 
+Ví dụ đoạn code JS sau:
+
+```js
+// Accessing the property 'toLowerCase'
+// on 'message' and then calling it
+message.toLowerCase();
+
+// Calling 'message'
+message();
+```
+
+---
+
+Những câu hỏi hoang mang:
+
+- Is message callable?
+- Does it have a property called toLowerCase on it?
+- If it does, is toLowerCase even callable?
+- If both of these values are callable, what do they return?
+
+Giải pháp:
+
+> a static type system to make predictions about what code is expected before it runs.
+
+---
+
+## Một số lợi ích khác
+
+Chính vì TypeScript hiểu object, interface, class... nên nó có thể _auto-complete_ hay gợi ý các lựa chọn cho ta.
+
+```ts
+const cat = { eat: '🐟' };
+
+// suggestion: `cat.run`
+cat.
+```
+
+---
+
+Dễ sử dụng lib/package bên thứ 3 cung cấp. Ví dụ:
+
+```ts
+// `sftp` is a client object instance of 'ssh2-sftp-client' package
+// `filePath` is a string
+const type: string | boolean = await sftp.exists(filePath);
+```
+
+```ts
+// node_modules/@types/ssh2-sftp-client/index.d.ts
+declare class sftp {
+  exists(remotePath: string): Promise<false | FileInfoType>;
+}
+```
+
+---
+
+## typescript compiler
+
+```sh
+npm install -g typescript
+```
+
+- type checking
+- chuyển file .ts sang file JavaScript .js, từ đây ta có thể chạy file .js như vẫn làm với JavaScript.
+  - Thế nên ta có thể dùng TypeScript trên môi trường browser or Node.js.
+
+---
+
+Ví dụ compile đoạn code sau từ ts sang js:
+
+```ts
+const add = (num1: number, num2: number): number => {
+  return num1 + num2;
+};
+
+console.log("🚀 ~ file: add.ts ~ line 5 ~ add(2, 3)", add(2, 3));
+```
+
+```sh
+tsc add.ts
+# expected output: add.js
+```
+
+---
+
 ## Part 2 - Basic 🧱 examples
 
 ![height:430px](assets/elliot-andrews-6keOhd7idJo-unsplash.jpg)
@@ -103,7 +188,6 @@ const add = (num1: number, num2: number): number => {
 };
 
 console.log("🚀 ~ file: add.ts ~ line 5 ~ add(2, 3)", add(2, 3));
-
 ```
 
 ---
@@ -174,6 +258,9 @@ deno run ./test.ts
 
 ---
 
+## 
+
+---
 
 ## Cách dùng từ khóa 📖 `readonly` trong class, type, interface
 
@@ -185,7 +272,7 @@ Nếu được gán lại bằng 1 giá trị khác thì sẽ báo lỗi `không
 
 ---
 
-## Ví dụ trong 1 component có thuộc tính:
+## Ví dụ trong 1 component có thuộc tính
 
 ```ts
   public readonly columnTitles = columnTitles;
@@ -262,6 +349,7 @@ emp2.empName = 'Bill'; // OK
 
 Việc dùng `readonly` chỉ nhằm mục đích tránh những nhầm lẫn về logic, như việc đáng ra nó là biến không được thay đổi nhưng lại bị gán lại chẳng hạn.
 
+// TODO
 
 ---
 

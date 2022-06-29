@@ -1,0 +1,10 @@
+{
+  "name": "marp-presentation-about-typescript",
+  "version": "1.0.0",
+  "description": "This Vietnamese presentation made by [Marp](https://marp.app/) - Markdown Presentation Ecosystem with vscode.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "loclv",
+  "license": "MIT"
+}
