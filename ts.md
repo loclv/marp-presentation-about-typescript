@@ -459,6 +459,35 @@ printCoord({ x: 3, y: 7 });
 
 ---
 
+## Union Types - phép hợp
+
+TypeScript’s type system cho phép chúng ta tạo ra các type mới dựa trên các type có sẵn và các toán tử.
+
+```ts
+const printId = (id: number | string) => {
+  console.log('Your ID is: ' + id);
+};
+```
+
+---
+
+Union, dịch là "phép hợp".
+
+`id: number | string` nghĩa là param id có thể nhận 1 trong 2 kiểu number, hoặc string.
+
+---
+
+## Intersection types - phép giao
+
+```ts
+type TLocation = { x: number } & { y: number };
+const myLocation: TLocation = { x: 0, y: 0 };
+```
+
+`{ x: number } & { y: number }` bao gồm cả thuộc tính x và y.
+
+---
+
 ## Type Aliases
 
 ```ts
@@ -479,6 +508,14 @@ const printCoord = (pt: Point) => {
 
 ```ts
 type UserInputSanitizedString = string;
+```
+
+---
+
+### Type aliases với union
+
+```ts
+type Size = 'small' | 'medium' | 'large' | 'big';
 ```
 
 ---

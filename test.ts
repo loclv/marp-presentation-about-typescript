@@ -44,3 +44,13 @@ function identity<Type>(arg: Type): Type {
 const doSomething = <Type>(arg: Type): Type => {
   return arg;
 };
+
+const printId = (id: number | string) => {
+  console.log('Your ID is: ' + id);
+};
+
+type Size = 'small' | 'medium' | 'large' | 'big';
+
+type TLocation = { x: number } & { y: number };
+
+const myLocation: TLocation = { x: 0, y: 0 };

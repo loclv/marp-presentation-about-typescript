@@ -29,6 +29,7 @@ Main:
 - Về việc chú thích kiểu với biến
 - Object Types
 - Union Types
+- Intersection Types
 - Type Aliases
 - Interfaces
 - Type Assertions
