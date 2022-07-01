@@ -25,6 +25,19 @@ author: loclv
 
 ---
 
+## Lời nói đầu 😎
+
+- giới thiệu bản thân.
+- đây là 1 buổi chia sẻ và bàn luân!
+- lý do tại sao mình lại muốn chia sẻ?
+- lý do mọi người lại đến nghe?
+- khi nào có thắc mắc thêm thì phải đặt câu hỏi ngay, sợ quên lắm!
+- có thời gian nghỉ mỗi 45 phút.
+- khi nào cảm thấy nội dung "nhàm chán", "buồn ngủ" thì phải lên tiếng luôn!
+- "chưa hiểu" thì phải bảo là "chưa hiểu"!
+
+---
+
 ## Part 1 - Introduce 🌱 TypeScript
 
 ![height:440px](assets/jack-anstey-XVoyX7l9ocY-unsplash.jpg)
@@ -409,6 +422,28 @@ const takeFrom3rdPosition = (str) => {
 
 ## Về việc chú thích kiểu với biến
 
+```ts
+let myName: string = "Alice";
+```
+
+> In most cases, though, this isn’t needed. Wherever possible, TypeScript tries to automatically infer the types in your code.
+
+---
+
+Chú thích kiểu là phần nằm bên phải biến, với cú pháp là `<2 dots mark><space><type>`.
+
+Khi nào thì cần phải dùng chú thích kiểu - type annotations?
+
+---
+
+Khi mà TypeScript không tự hiểu được kiểu của biến đố, tại thời điểm khởi tạo. Ví dụ:
+
+```ts
+let myLand: string | undefined = undefined;
+
+myLand = 'LaLa';
+```
+
 ---
 
 ## Object Types
@@ -420,6 +455,140 @@ function printCoord(pt: { x: number; y: number }) {
   console.log("The coordinate's y value is " + pt.y);
 }
 printCoord({ x: 3, y: 7 });
+```
+
+---
+
+## Type Aliases
+
+```ts
+type Point = {
+  x: number;
+  y: number;
+};
+
+const printCoord = (pt: Point) => {
+  console.log("The coordinate's x value is " + pt.x);
+  console.log("The coordinate's y value is " + pt.y);
+};
+```
+
+---
+
+Đơn giản chỉ là 1 alias - biệt danh. Ví dụ:
+
+```ts
+type UserInputSanitizedString = string;
+```
+
+---
+
+## Interfaces
+
+> An interface declaration is another way to name an object type:
+
+```ts
+interface Point {
+  x: number;
+  y: number;
+}
+```
+
+---
+
+## Differences Between Type Aliases and Interfaces
+
+Extending an interface:
+
+```ts
+interface Animal {
+  name: string
+}
+
+interface Bear extends Animal {
+  honey: boolean
+}
+```
+
+---
+
+Extending a type via intersections (phép giao):
+
+```ts
+type Animal = {
+  name: string
+}
+
+type Bear = Animal & { 
+  honey: boolean 
+}
+```
+
+---
+
+Adding new fields to an existing interface:
+
+```ts
+interface IWindow {
+  title: string;
+}
+interface IWindow {
+  color: string;
+}
+const inputWindow: IWindow = {
+  title: '👨‍🎨 alert!',
+  color: '🌈',
+};
+```
+
+A type cannot be changed after being created!
+
+---
+
+Tóm lại:
+
+- interface có tính mở rộng cao hơn
+  - có thể update - thêm thuộc tính
+  - class có thể extends từ interface
+  - có thể được sử dụng như type aliases, khi chú thích kiểu
+
+- type aliases thì được dùng như 1 biến, có thể nhận kết quả từ các toán tử với type. Còn interface cần phải có 1 cấu trúc.
+
+---
+
+Khi định nghĩa models trong thực tế, hay để tái sử dụng type thì người ta thường dùng interface.
+
+Type aliases được dùng khi muốn tái sử dụng biểu thức với type.
+
+---
+
+## generic types
+
+Sinh ra để giải quyết bài toán tái sử dụng src/logic với type thay đổi theo từng trường hợp.
+
+```ts
+function identity<Type>(arg: Type): Type {
+  return arg;
+}
+
+const doSomething = <Type>(arg: Type): Type => {
+  return arg;
+};
+```
+
+---
+
+## Classes
+
+```ts
+class Point {
+  x: number;
+  y: number;
+}
+ 
+const pt = new Point();
+pt.x = 0;
+pt.y = 0;
 ```
 
 ---
