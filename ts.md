@@ -717,7 +717,72 @@ emp2.empName = 'Bill'; // OK
 
 Việc dùng `readonly` chỉ nhằm mục đích tránh những nhầm lẫn về logic, như việc đáng ra nó là biến không được thay đổi nhưng lại bị gán lại chẳng hạn.
 
-// TODO
+---
+
+## Data Type - Never
+
+`never` là 1 type không tồn tại trong JavaScript.
+
+`never` hay kiểu không bao giờ, được định nghĩa là kiểu trả về khi mà bạn chắc chắn là không thể trả về được 1 giá trị nào đó do vòng lặp vô hạn hay chủ động dừng, không thực hiện tiếp.
+
+---
+
+Ví dụ 1 function không thực hiện được hết, hay function đó luôn bị dừng do throw 1 exception - ngoại lệ:
+
+```ts
+const throwError = (errorMsg: string): never => {
+  throw new Error(errorMsg);
+};
+```
+
+---
+
+```ts
+const keepProcessing = (): never => {
+  while (true) {
+    console.log('I always does something and never ends.');
+  }
+};
+```
+
+function không thực hiện được hết.
+
+---
+
+`throwError` và `while (true)` sẽ ngăn function thực hiện xong, thế nên nó tất nhiên không bao giờ có thể return `void`. Và kiểu function này, ta có thể đặt kiểu trả về là `never`.
+
+---
+
+## Ứng dụng của `never`
+
+### Hữu dụng khi báo lỗi
+
+Nếu bạn code nhiều TypeScript thì sẽ quen mặt thằng never này ở thông báo lỗi khi build project. Bởi lẽ never thường đi kèm với việc có gì đó đang không thể return được.
+
+---
+
+### Sử dụng với Generic types và condition types
+
+```ts
+type TNonNullable<T> = T extends null | undefined ? never : T;
+
+// 🚫 error: Type 'undefined' is not assignable to type 'never'.
+const value: TNonNullable<undefined> = undefined;
+console.log('🚀 ~ value', value);
+```
+
+---
+
+```ts
+// another example:
+type TNotANumber<T> = T extends number ? never : T;
+
+// 🚫 error: Type 'number' is not assignable to type 'never'.
+const notANumberValue: TNotANumber<number> = 1;
+console.log('🚀 ~ notANumberValue', notANumberValue);
+```
+
+`TNonNullable` sẽ không chấp nhận `null | undefined`. `TNotANumber` cũng không chấp nhận 1 `number` type.
 
 ---
 
