@@ -113,7 +113,7 @@ Giải pháp:
 
 ---
 
-## Một số lợi ích khác
+## Một số lợi ích khác của TypeScript
 
 Chính vì TypeScript hiểu object, interface, class... nên nó có thể _auto-complete_ hay gợi ý các lựa chọn cho ta.
 
@@ -180,7 +180,7 @@ Photo by [Elliot Andrews](https://unsplash.com/@elliot_ra8?utm_source=unsplash&u
 
 ---
 
-## Ví dụ - add function
+## Ví dụ đơn giản - add function
 
 ```ts
 const add = (num1: number, num2: number): number => {
@@ -258,7 +258,169 @@ deno run ./test.ts
 
 ---
 
-## 
+## Kiểu nguyên thủy
+
+- string: '', "Hello, world"
+- number: 0, -1, 3.14 (float), not BigInt (BigInt support has been added on [TypeScript 3.2](https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-2.html#bigint))
+- boolean: two values true and false
+
+---
+
+Ví dụ:
+
+```ts
+let aStr: string;
+
+aStr = 'hello';
+// 😻 err: Type 'undefined' is not assignable to type 'string'
+aStr = undefined;
+```
+
+---
+
+## Array type
+
+```ts
+const aArray: number[] = [1, 2, 3]
+```
+
+Có 2 cách viết: `number[]` hoặc `Array<number>`.
+
+Cách viết `number[]` dễ đọc và ngắn gọn hơn.
+
+---
+
+## `any` type
+
+Trong TypeScript mọi thứ sẽ được check type, ngoại trừ `any`.
+
+> Using `any` disables all further type checking.
+
+```ts
+let obj: any = { x: 0 };
+
+// no error 😢
+obj.foo();
+obj();
+obj.bar = 100;
+obj = 'hello';
+```
+
+---
+
+Mọi biến được gán bởi 1 giá trị `any` đều được chấp nhận.
+
+```ts
+let obj: any = { x: 0 };
+
+// no error 😢
+const num: number = obj;
+```
+
+---
+
+Code typescript mà để `any` thì chẳng khác nào code JavaScript!
+
+Nên hạn chế sử dụng `any` nhất có thể.
+
+Vậy thì khi nào chấp nhận dùng `any`?
+
+---
+
+Vậy thì khi nào chấp nhận dùng `any`?
+
+- Thiết kế model chưa rõ ràng, trong khi thay đổi quá nhiều lần. Ta tạm thời dùng `any`.
+
+Đối với phần code common có quá nhiều params/return type thì ta có thể sử dụng [generic types](https://www.typescriptlang.org/docs/handbook/2/generics.html#generic-types).
+
+---
+
+## Hạn chế `any` bằng tools
+
+Có 2 cách là: dùng _tsconfig_ và _eslint_.
+
+---
+
+### noImplicitAny - không được ngầm hiểu là any
+
+Đây là [1 config trong file tsconfig.json](https://www.typescriptlang.org/tsconfig#noImplicitAny).
+
+> In some cases where no type annotations are present, TypeScript will fall back to a type of any for a variable when it cannot infer the type.
+
+---
+
+This can cause some errors to be missed, for example:
+
+```ts
+const takeFrom3rdPosition = (str) => {
+  // No error? `.subtr` -> `.substr`
+  console.log(str.subtr(3));
+}
+
+// No error?
+takeFrom3rdPosition(42);
+```
+
+---
+
+Bật config `noImplicitAny` trong `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    // ...
+    "noImplicitAny": true,
+  }
+}
+```
+
+---
+
+Kết quả:
+
+```ts
+const takeFrom3rdPosition = (str) => {
+  // err: Parameter 'str' implicitly has an 'any' type.
+  console.log(str.subtr(3));
+}
+```
+
+---
+
+### Sử dụng eslint
+
+`.eslintrc.json`:
+
+```json
+{
+  // ..
+  {
+    "files": "*.ts",
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint"],
+    "rules": {
+      "@typescript-eslint/no-explicit-any": 1,
+    }
+  }
+}
+```
+
+---
+
+## Về việc chú thích kiểu với biến
+
+---
+
+## Object Types
+
+```ts
+// The parameter's type annotation is an object type
+function printCoord(pt: { x: number; y: number }) {
+  console.log("The coordinate's x value is " + pt.x);
+  console.log("The coordinate's y value is " + pt.y);
+}
+printCoord({ x: 3, y: 7 });
+```
 
 ---
 
