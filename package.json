@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "This Vietnamese presentation made by [Marp](https://marp.app/) - Markdown Presentation Ecosystem with vscode.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "pnpm markdownlint-cli2 '**/*.md' '#node_modules'"
   },
   "author": "loclv",
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": ">=16",
+    "pnpm": ">=7.9.0"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "^0.5.0"
+  }
 }
